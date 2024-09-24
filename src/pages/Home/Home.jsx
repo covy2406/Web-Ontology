@@ -1,10 +1,59 @@
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import React from "react";
+import "./home.css";
+import Checkbox from "@mui/material/Checkbox";
+import { Link } from "react-router-dom";
+import BarChartIcon from '@mui/icons-material/BarChart';
 
+const label = { inputProps: { "aria-label": "Checkbox demo" } };
 const Home = () => {
   return (
     <>
-      <div className="justify-center items-center h-[650px]">
-        <p className="text-3xl text-center">Hello day la trang home nha</p>
+      <div className="flex justify-between px-12 py-8">
+        <div className="w-[900px] rounded-md bg-[#f0f0f0] home__search-bg p-6">
+          <p className="px-2 mt-4 text-3xl font-bold">
+            Welcome to the EMBL-EBI Ontology Lookup Service
+          </p>
+          <div className="flex items-center justify-between px-2 my-6">
+            <TextField
+              sx={{ width: 710, maxWidth: "100%", backgroundColor: "white" }}
+              label="Search"
+              id="fullWidth"
+            />
+            <Button variant="contained" size="large" sx={{ padding: "14px 12px" }}>
+              Search
+            </Button>
+          </div>
+          <div className="mb-6">
+            <Checkbox {...label} />
+            <span>Extract match</span>
+            <Checkbox {...label} /> <span>Include obsolete terms</span>
+            <Checkbox {...label} defaultChecked /> <span>Include imported terms</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <p className="px-2">
+              Examples: <span className="text-green-600 cursor-pointer hover:underline">diabetes, GO:0098743</span>
+            </p>
+            <Link className="text-green-600 cursor-pointer hover:underline">Looking for a particular ontology?</Link>
+          </div>
+        </div>
+        <div className="border-b-8 p-6 w-[288px] border-[#00827c] rounded-md shadow-lg">
+          <div className="flex items-center mb-3">
+            <BarChartIcon fontSize="large" sx={{ fontSize: 40 }}/>
+            <p className="text-3xl font-bold">Data Content</p>
+          </div>
+          <div>
+            <i className="text-">Updated 23 Sep 2024 Mon</i><br />
+            <i>04:35(+07:00)</i>
+            <ul className="pt-2" style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
+              <li>262 ontologies</li>
+              <li>8.584.670 classes</li>
+              <li>44.633 properties</li>
+              <li>687.081 individuals</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </>
   );
