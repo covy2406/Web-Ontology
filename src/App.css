@@ -1,3 +1,32 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "normalize.css";
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --text-primary: #ccc;
+  --orange-primary: #f50;
+  --font-family: "Inter", sans-serif;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  overflow-y: scroll;
+}
+
+button,
+input,
+[tabindex] {
+  border: none;
+  outline: none;
+}
