@@ -3,11 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaFeatures: {
@@ -49,7 +45,7 @@ module.exports = {
     "linebreak-style": 0,
     "no-unexpected-multiline": "warn",
     "keyword-spacing": 1,
-    "comma-dangle": 1,
+    "comma-dangle": 0,
     "comma-spacing": 1,
     "arrow-spacing": 1,
   },
