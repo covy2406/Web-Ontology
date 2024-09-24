@@ -2,6 +2,7 @@ import React from "react";
 import { backgroundImage } from "../../assest/images";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
+import { NavLink } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -23,11 +24,13 @@ const Header = () => {
           </div>
 
           <div className="text-white flex h-fit">
-            <button className={cx("nav-button")}>Home</button>
-            <button className={cx("nav-button")}>Ontologies</button>
-            <button className={cx("nav-button")}>Help</button>
-            <button className={cx("nav-button")}>About</button>
-            <button className={cx("nav-button")}>Downloads</button>
+            <NavLink to={"/"} className={(nav) => cx("nav-button", { active: nav.isActive })}>
+              Home
+            </NavLink>
+            <NavLink className={cx("nav-button")}>Ontologies</NavLink>
+            <NavLink className={cx("nav-button")}>Help</NavLink>
+            <NavLink className={cx("nav-button")}>About</NavLink>
+            <NavLink className={cx("nav-button")}>Downloads</NavLink>
           </div>
         </div>
       </header>

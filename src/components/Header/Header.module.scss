@@ -5,8 +5,20 @@
   &:hover {
     background-color: rgb(115 115 115 / 0.75);
   }
+  &:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  &:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
 }
 
 .nav-button + .nav-button {
   border-left: 1px solid #fff;
+}
+
+.active {
+  background-color: rgb(115 115 115 / 0.75);
 }
