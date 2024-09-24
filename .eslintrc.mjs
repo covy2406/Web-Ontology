@@ -4,11 +4,7 @@ export default {
     es2021: true,
     jest: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   parser: "@babel/eslint-parser",
   parserOptions: {
     ecmaFeatures: {
@@ -21,7 +17,7 @@ export default {
   rules: {
     // react
     "react-refresh/only-export-components": "warn",
-    "quotes": ["error", "double"],
+    quotes: ["error", "double"],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -44,14 +40,14 @@ export default {
     "no-multiple-empty-lines": 1,
     "space-before-blocks": ["error", "always"],
     "object-curly-spacing": [1, "always"],
-    "indent": ["warn", 2],
+    indent: ["warn", 2],
     // "semi": [1, "never"],
     // "quotes": ["error", "double"],
     "array-bracket-spacing": 1,
     "linebreak-style": 0,
     "no-unexpected-multiline": "warn",
     "keyword-spacing": 1,
-    "comma-dangle": 1,
+    "comma-dangle": 0,
     "comma-spacing": 1,
     "arrow-spacing": 1,
   },
