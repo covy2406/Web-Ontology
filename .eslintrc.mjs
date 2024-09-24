@@ -1,7 +1,8 @@
-module.exports = {
+export default {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
   parser: "@babel/eslint-parser",
@@ -16,6 +17,7 @@ module.exports = {
   rules: {
     // react
     "react-refresh/only-export-components": "warn",
+    quotes: ["error", "double"],
     "react/react-in-jsx-scope": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
@@ -40,7 +42,7 @@ module.exports = {
     "object-curly-spacing": [1, "always"],
     indent: ["warn", 2],
     // "semi": [1, "never"],
-    // "quotes": ["error", "single"],
+    // "quotes": ["error", "double"],
     "array-bracket-spacing": 1,
     "linebreak-style": 0,
     "no-unexpected-multiline": "warn",
