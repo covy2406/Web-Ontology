@@ -8,8 +8,10 @@
   --black: #000;
   --white: #fff;
   --text-primary: #ccc;
-  --orange-primary: #f50;
   --font-family: "Inter", sans-serif;
+  --text-primary: #202124;
+  --text-gray: #4d5156;
+  --text-blue: #1a0dab;
 }
 * {
   box-sizing: border-box;
@@ -18,8 +20,7 @@
 }
 
 body {
-  font-size: 1.6rem;
-  line-height: 1.5;
+  /* font-size: 1.6rem; */
   text-rendering: optimizeLegibility;
   overflow-y: scroll;
 }
