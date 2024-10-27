@@ -1,10 +1,11 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "https://ontology-be-fastapi.onrender.com",
+  baseURL: "https://db08-117-2-255-206.ngrok-free.app",
   headers: {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
+    "ngrok-skip-browser-warning": "69420",
   },
 });
 
