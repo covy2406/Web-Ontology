@@ -7,21 +7,31 @@ import { Link } from "react-router-dom";
 // import BarChartIcon from "@mui/icons-material/BarChart";
 import { getByLabel } from "../../services/api/search";
 import Search from "../Search";
+import { Controller, useForm } from "react-hook-form";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 const Home = () => {
-  const [searchValue, setSearchValue] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = () => {
-    getByLabel({ labelName: searchValue, page: 1, perPage: 20 })
+  const form = useForm({
+    defaultValues: {
+      searchValue: "",
+    },
+  });
+
+  const handleSearch = (values) => {
+    setIsLoading(true);
+    getByLabel({ labelName: values.searchValue, page: 1, perPage: 20 })
       .then((res) => {
         console.log(res);
         setSearchResult(res?.results.bindings);
       })
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -33,15 +43,26 @@ const Home = () => {
               <p className="px-2 mt-4 text-3xl font-bold">
                 Welcome to the EMBL-EBI Ontology Lookup Service
               </p>
-              <div className="flex items-center justify-between px-2 my-6">
-                <TextField
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  sx={{ width: 720, maxWidth: "100%", backgroundColor: "white" }}
-                  label="Search"
-                  id="fullWidth"
-                />
+              <form
+                onSubmit={form.handleSubmit(handleSearch)}
+                className="flex items-center justify-between px-2 my-6"
+              >
+                <Controller
+                  control={form.control}
+                  name="searchValue"
+                  render={({ field }) => (
+                    <TextField
+                      value={field.value}
+                      onChange={field.onChange}
+                      sx={{ width: 720, maxWidth: "100%", backgroundColor: "white" }}
+                      label="Search"
+                      id="fullWidth"
+                    />
+                  )}
+                ></Controller>
+
                 <Button
+                  startIcon={isLoading && <CircularProgress size={24} color="white" />}
                   onClick={handleSearch}
                   variant="contained"
                   size="large"
@@ -49,7 +70,7 @@ const Home = () => {
                 >
                   Search
                 </Button>
-              </div>
+              </form>
               <div className="mb-6">
                 <Checkbox {...label} />
                 <span>Extract match</span>
