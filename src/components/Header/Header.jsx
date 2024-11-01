@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { backgroundImage } from "../../assest/images";
-import { NavLink } from "react-router-dom";
 import "./Header.css";
+import { Button, CircularProgress, TextField } from "@mui/material";
+import { searchQuestion } from "../../services/api/search";
 
 const Header = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const [searchResult, setSearchResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSearch = () => {
+    setIsLoading(true);
+    searchQuestion({ question: searchValue, page: 1, perPage: 20 })
+      .then((res) => {
+        console.log(res);
+
+        setSearchResult(res?.bindings);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => setIsLoading(false));
+  };
   return (
     <>
       <header
@@ -22,16 +41,25 @@ const Header = () => {
           </div>
 
           <div className="text-white flex h-fit">
-            <NavLink
-              to={"/"}
-              className={(nav) => `Header_nav-button ${nav.isActive && "Header_active"}`}
-            >
-              Home
-            </NavLink>
-            <NavLink className={"Header_nav-button"}>Ontologies</NavLink>
-            <NavLink className={"Header_nav-button"}>Help</NavLink>
-            <NavLink className={"Header_nav-button"}>About</NavLink>
-            <NavLink className={"Header_nav-button"}>Downloads</NavLink>
+            <form className="flex items-center justify-between px-2 my-6">
+              <TextField
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                sx={{ width: 720, maxWidth: "100%", backgroundColor: "white" }}
+                label="Search"
+                id="fullWidth"
+              />
+
+              <Button
+                startIcon={isLoading && <CircularProgress size={24} color="white" />}
+                onClick={handleSearch}
+                variant="contained"
+                size="large"
+                sx={{ padding: "14px 12px" }}
+              >
+                Search
+              </Button>
+            </form>
           </div>
         </div>
       </header>

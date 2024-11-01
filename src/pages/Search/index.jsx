@@ -1,13 +1,17 @@
 import React from "react";
 import SearchItem from "../../components/SearchItem";
-import SideBar from "../../components/Sidebar";
 import PropTypes from "prop-types";
 
 function Search({ searchResult = [] }) {
+  let links = searchResult[0]?.Xrefs?.value?.split(",");
+  links = links?.map((link) => link.substring(link.indexOf("http")));
+
+  console.log(links);
+
   return (
     <div className="w-[1500px] mx-auto my-10">
       <div className="flex">
-        <div className="w-[740px]">
+        <div className="">
           {searchResult.map((item, index) => (
             <SearchItem
               key={index}
@@ -17,7 +21,6 @@ function Search({ searchResult = [] }) {
             />
           ))}
         </div>
-        <SideBar />
       </div>
     </div>
   );
