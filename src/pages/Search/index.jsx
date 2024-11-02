@@ -2,15 +2,16 @@ import React, { useContext } from "react";
 import SearchItem from "../../components/SearchItem";
 import PropTypes from "prop-types";
 import { StorageContext } from "../../layouts/HomeLayout/HomeLayout";
+import { Pagination } from "@mui/material";
 
 function Search() {
-  const { searchResult } = useContext(StorageContext);
+  const { searchResult, setPage } = useContext(StorageContext);
 
   let links = searchResult[0]?.Xrefs?.value?.split(",");
   links = links?.map((link) => link.substring(link.indexOf("http")));
 
   return (
-    <div className="w-[1500px] mx-auto my-10">
+    <div className="mx-auto my-5">
       <div className="flex">
         <div className="">
           {searchResult.map((item, index) => (
@@ -23,6 +24,15 @@ function Search() {
             />
           ))}
         </div>
+      </div>
+      <div className="flex-1 flex justify-center">
+        <Pagination
+          onChange={(event, number) => {
+            setPage(number);
+          }}
+          count={10}
+          variant="outlined"
+        />
       </div>
     </div>
   );

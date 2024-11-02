@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { backgroundImage } from "../../assest/images";
 import "./Header.css";
 import { Button, CircularProgress, TextField } from "@mui/material";
@@ -7,21 +7,43 @@ import { StorageContext } from "../../layouts/HomeLayout/HomeLayout";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { setSearchResult } = useContext(StorageContext);
+  const [isSearching, setIsSearching] = useState(false);
+  const { setSearchResult, page, setIsLoading } = useContext(StorageContext);
 
   const handleSearch = () => {
-    setIsLoading(true);
-    searchQuestion({ question: searchValue, page: 1, perPage: 20 })
+    setIsSearching(true);
+    searchQuestion({ question: searchValue, page: page, perPage: 20 })
       .then((res) => {
-        console.log(res);
         setSearchResult(res?.bindings);
       })
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => setIsSearching(false));
   };
+
+  useEffect(() => {
+    if (searchValue) {
+      setIsLoading(true);
+      searchQuestion({ question: searchValue, page: page, perPage: 20 })
+        .then((res) => {
+          setSearchResult(res?.bindings);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsSearching(false);
+          setIsLoading(false);
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+          }, 250);
+        });
+    }
+
+    // eslint-disable-next-line
+  }, [page]);
+
   return (
     <>
       <header
@@ -40,7 +62,13 @@ const Header = () => {
           </div>
 
           <div className="text-white flex h-fit w-full">
-            <form className="flex items-center justify-between px-2 my-6 gap-4 w-full">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+              className="flex items-center justify-between px-2 my-6 gap-4 w-full"
+            >
               <TextField
                 placeholder="What is your question?"
                 value={searchValue}
@@ -54,7 +82,7 @@ const Header = () => {
               />
 
               <Button
-                startIcon={isLoading && <CircularProgress size={24} color="white" />}
+                startIcon={isSearching && <CircularProgress size={24} color="white" />}
                 onClick={handleSearch}
                 variant="contained"
                 size="large"
