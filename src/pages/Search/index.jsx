@@ -7,9 +7,6 @@ import { Pagination } from "@mui/material";
 function Search() {
   const { searchResult, setPage } = useContext(StorageContext);
 
-  let links = searchResult[0]?.Xrefs?.value?.split(",");
-  links = links?.map((link) => link.substring(link.indexOf("http")));
-
   return (
     <div className="mx-auto my-5">
       <div className="flex">
@@ -18,9 +15,11 @@ function Search() {
             <SearchItem
               key={index}
               header={item.classLabel?.value}
-              url={item.Xref?.value?.substring(item.Xref.value.indexOf("http"))}
+              url={item.main_Xrefs?.value?.url}
               description={item.description?.value}
-              links={links}
+              links={item.Xrefs?.value}
+              icon={item.main_Xrefs?.value?.icon}
+              title={item.main_Xrefs?.value?.title}
             />
           ))}
         </div>
