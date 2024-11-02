@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Avatar } from "@mui/material";
 
-function SearchItem({ header, description, url, thumbnail }) {
+function SearchItem({ header, description, url, thumbnail, links = [] }) {
   header = header.charAt(0).toUpperCase() + header.slice(1);
   return (
     <div className="mb-5">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "https://1481-2405-4802-95c8-4050-2563-cb3b-128-1bfe.ngrok-free.app",
+  baseURL: "https://ontology-be-fastapi.up.railway.app",
   headers: {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",

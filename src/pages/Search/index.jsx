@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import SearchItem from "../../components/SearchItem";
 import PropTypes from "prop-types";
+import { StorageContext } from "../../layouts/HomeLayout/HomeLayout";
 
-function Search({ searchResult = [] }) {
+function Search() {
+  const { searchResult } = useContext(StorageContext);
+
   let links = searchResult[0]?.Xrefs?.value?.split(",");
   links = links?.map((link) => link.substring(link.indexOf("http")));
-
-  console.log(links);
 
   return (
     <div className="w-[1500px] mx-auto my-10">
@@ -18,6 +19,7 @@ function Search({ searchResult = [] }) {
               header={item.classLabel?.value}
               url={item.Xref?.value?.substring(item.Xref.value.indexOf("http"))}
               description={item.description?.value}
+              links={links}
             />
           ))}
         </div>

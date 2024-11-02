@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { backgroundImage } from "../../assest/images";
 import "./Header.css";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { searchQuestion } from "../../services/api/search";
+import { StorageContext } from "../../layouts/HomeLayout/HomeLayout";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState("");
-
-  const [searchResult, setSearchResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { setSearchResult } = useContext(StorageContext);
 
   const handleSearch = () => {
     setIsLoading(true);
     searchQuestion({ question: searchValue, page: 1, perPage: 20 })
       .then((res) => {
         console.log(res);
-
         setSearchResult(res?.bindings);
       })
       .catch((err) => {
@@ -40,13 +39,17 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="text-white flex h-fit">
-            <form className="flex items-center justify-between px-2 my-6">
+          <div className="text-white flex h-fit w-full">
+            <form className="flex items-center justify-between px-2 my-6 gap-4 w-full">
               <TextField
+                placeholder="What is your question?"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
-                sx={{ width: 720, maxWidth: "100%", backgroundColor: "white" }}
-                label="Search"
+                sx={{
+                  width: "100%",
+                  maxWidth: "100%",
+                  backgroundColor: "white",
+                }}
                 id="fullWidth"
               />
 
