@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import SearchItem from "../../components/SearchItem";
 import PropTypes from "prop-types";
-import { StorageContext } from "../../layouts/HomeLayout/HomeLayout";
+import { StorageContext } from "../../Context";
 import { Pagination } from "@mui/material";
 
 function Search() {
@@ -24,7 +24,7 @@ function Search() {
           ))}
         </div>
       </div>
-      <div className="flex-1 flex justify-center">
+      <div className="flex justify-center flex-1">
         <Pagination
           onChange={(event, number) => {
             setPage(number);

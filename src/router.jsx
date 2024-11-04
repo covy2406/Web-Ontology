@@ -2,27 +2,28 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeLayout from "./layouts/HomeLayout/HomeLayout";
 import Home from "./pages/Home/Home";
 import React from "react";
-import Search from "./pages/Search";
+import IndexLayout from "./layouts/IndexLayout";
+import HomeIndex from "./pages/HomeIndex";
 
 function Router() {
   const router = createBrowserRouter([
     {
-      path: "/", // HomeLayout sẽ hiển thị cho đường dẫn '/'
-      element: <HomeLayout />,
+      path: "/",
+      element: <IndexLayout />,
       children: [
         {
-          index: true, // Trang Home sẽ hiển thị mặc định
-          element: <Home />,
+          index: true, 
+          element: <HomeIndex />,
         },
       ],
     },
     {
-      path: "/search", // HomeLayout sẽ hiển thị cho đường dẫn '/'
+      path: "/search",
       element: <HomeLayout />,
       children: [
         {
-          index: true, // Trang Home sẽ hiển thị mặc định
-          element: <Search />,
+          index: true, 
+          element: <Home />,
         },
       ],
     },
