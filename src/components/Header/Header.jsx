@@ -3,17 +3,19 @@ import { backgroundImage } from "../../assest/images";
 import "./Header.css";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { searchQuestion } from "../../services/api/search";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { StorageContext } from "../../Context";
 
 const Header = () => {
-  // const [searchValue, setSearchValue] = useState("");
+  const [localSearchValue, setLocalSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const { setSearchResult, page, setIsLoading, searchValue, setSearchValue } = useContext(StorageContext);
+  const location = useLocation();
 
   const handleSearch = () => {
     setIsSearching(true);
-    searchQuestion({ question: searchValue, page: page, perPage: 20 })
+    setSearchValue(localSearchValue);
+    searchQuestion({ question: localSearchValue, page: page, perPage: 20 })
       .then((res) => {
         setSearchResult(res?.bindings);
       })
@@ -45,6 +47,14 @@ const Header = () => {
     // eslint-disable-next-line
   }, [page]);
 
+  useEffect(() => {
+    if (location.pathname === "/") {
+      setLocalSearchValue("");
+    } else {
+      setLocalSearchValue(searchValue);
+    }
+  }, [location, searchValue]);
+
   return (
     <>
       <header
@@ -72,8 +82,8 @@ const Header = () => {
             >
               <TextField
                 placeholder="What is your question?"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                value={localSearchValue}
+                onChange={(e) => setLocalSearchValue(e.target.value)}
                 sx={{
                   width: "100%",
                   maxWidth: "100%",

@@ -6,14 +6,15 @@ import { StorageContext } from "../../Context";
 import SearchIcon from "@mui/icons-material/Search";
 
 const HomeIndex = () => {
-  // const [searchValue, setSearchValue] = useState("");
+  const [localSearchValue, setLocalSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const { setSearchResult, page, setIsLoading, searchValue, setSearchValue } = useContext(StorageContext);
+  const { setSearchResult, page, setIsLoading, setSearchValue } = useContext(StorageContext);
   const navigate = useNavigate();
 
   const handleSearch = () => {
     setIsSearching(true);
-    searchQuestion({ question: searchValue, page: page, perPage: 20 })
+    setSearchValue(localSearchValue);
+    searchQuestion({ question: localSearchValue, page: page, perPage: 20 })
       .then((res) => {
         setSearchResult(res?.bindings);
         navigate("/search");
@@ -25,9 +26,9 @@ const HomeIndex = () => {
   };
 
   useEffect(() => {
-    if (searchValue) {
+    if (localSearchValue) {
       setIsLoading(true);
-      searchQuestion({ question: searchValue, page: page, perPage: 20 })
+      searchQuestion({ question: localSearchValue, page: page, perPage: 20 })
         .then((res) => {
           setSearchResult(res?.bindings);
         })
@@ -67,8 +68,8 @@ const HomeIndex = () => {
           >
             <TextField
               placeholder="What is your question?"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
+              value={localSearchValue}
+              onChange={(e) => setLocalSearchValue(e.target.value)}
               autoComplete="off"
               sx={{
                 width: "100%",
@@ -102,7 +103,6 @@ const HomeIndex = () => {
                 },
               }}
               InputProps={{
-                // autoComplete="off",
                 startAdornment: (
                   <InputAdornment position="start">
                     <SearchIcon />
