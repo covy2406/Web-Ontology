@@ -24,7 +24,7 @@ function SearchItem({ header, description, url = "", icon, links = [], title = "
         />
 
         <div className="flex flex-col">
-          <span className=" text-[14px] text-[#202124]">{title}</span>
+          <span className="text-[14px] text-[#202124]">{title}</span>
           <p className="text-[12px]">{url}</p>
         </div>
       </div>

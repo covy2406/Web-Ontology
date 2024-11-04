@@ -12,6 +12,8 @@
   --text-primary: #202124;
   --text-gray: #4d5156;
   --text-blue: #1a0dab;
+  --primary: rgb(0 130 124 / 1);
+  --orange: rgb(230 178 34 / 1);
 }
 * {
   box-sizing: border-box;
