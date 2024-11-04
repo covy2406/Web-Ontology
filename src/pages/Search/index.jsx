@@ -15,7 +15,9 @@ function Search() {
     setIsSearching(true);
     searchQuestion({ question: searchValue, page: page, perPage: 20 })
       .then((res) => {
-        setSearchResult(res?.bindings);
+        if (res.bindings) {
+          setSearchResult(res.bindings);
+        }
       })
       .catch((err) => {
         console.log(err);
