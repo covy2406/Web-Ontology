@@ -6,9 +6,9 @@ import { StorageContext } from "../../Context";
 import SearchIcon from "@mui/icons-material/Search";
 
 const HomeIndex = () => {
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const { setSearchResult, page, setIsLoading } = useContext(StorageContext);
+  const { setSearchResult, page, setIsLoading, searchValue, setSearchValue } = useContext(StorageContext);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -102,7 +102,7 @@ const HomeIndex = () => {
                 },
               }}
               InputProps={{
-              
+                // autoComplete="off",
                 startAdornment: (
                   <InputAdornment position="start">
                     <SearchIcon />

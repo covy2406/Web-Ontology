@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 import { StorageContext } from "../../Context";
 
 const Header = () => {
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const { setSearchResult, page, setIsLoading } = useContext(StorageContext);
+  const { setSearchResult, page, setIsLoading, searchValue, setSearchValue } = useContext(StorageContext);
 
   const handleSearch = () => {
     setIsSearching(true);
