@@ -15,5 +15,7 @@ export async function searchQuestion({ question, page = 1, perPage = 20 }) {
       `/findByDescription?description=${question}&page=${page}&limit=${perPage}`,
     );
     return response.data;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 }
