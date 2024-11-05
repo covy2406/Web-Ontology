@@ -8,14 +8,14 @@ function Search() {
   const { searchResult, setPage } = useContext(StorageContext);
 
   return (
-    <div className="mx-auto my-5">
+    <div className="">
       <div className="flex">
         <div className="">
           {searchResult.map((item, index) => (
             <SearchItem
               key={index}
               header={item.classLabel?.value}
-              url={item.main_Xrefs?.value?.url}
+              url={item.Xrefs?.value[0]}
               description={item.description?.value}
               links={item.Xrefs?.value}
               icon={item.main_Xrefs?.value?.icon}
@@ -24,15 +24,17 @@ function Search() {
           ))}
         </div>
       </div>
-      <div className="flex justify-center flex-1">
-        <Pagination
-          onChange={(event, number) => {
-            setPage(number);
-          }}
-          count={10}
-          variant="outlined"
-        />
-      </div>
+      {searchResult.length > 0 && (
+        <div className="flex justify-center flex-1">
+          <Pagination
+            onChange={(event, number) => {
+              setPage(number);
+            }}
+            count={10}
+            variant="outlined"
+          />
+        </div>
+      )}
     </div>
   );
 }

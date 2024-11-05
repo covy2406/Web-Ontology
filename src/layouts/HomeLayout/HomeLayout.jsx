@@ -12,14 +12,6 @@ function HomeLayout() {
   return (
     <>
       <Header setSearchResult={setSearchResult}/>
-      <div className="flex px-12 py-3">
-        <div className="px-[10px] py-2 text-[#1f1f1f] border-b-[3px] border-[#1f1f1f] cursor-pointer">
-          All
-        </div>
-        <div className="px-[10px] py-2 text-[#1f1f1f] border-b-[3px] border-[transparent] cursor-pointer">
-          Images
-        </div>
-      </div>
       <Outlet />
       <Footer />
       <Modal open={isLoading}>

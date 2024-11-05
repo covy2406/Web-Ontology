@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
 import { backgroundImage } from "../../assest/images";
 import "./Header.css";
 import { Button, CircularProgress, TextField } from "@mui/material";
 import { searchQuestion } from "../../services/api/search";
 import { Link, useLocation } from "react-router-dom";
 import { StorageContext } from "../../Context";
+import { useContext, useEffect, useState } from "react";
 
 const Header = () => {
   const [localSearchValue, setLocalSearchValue] = useState("");
@@ -73,36 +73,36 @@ const Header = () => {
           </Link>
 
           <div className="flex w-full text-white h-fit">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSearch();
-              }}
-              className="flex items-center justify-between w-full gap-4 px-2 my-6"
-            >
-              <TextField
-                placeholder="What is your question?"
-                value={localSearchValue}
-                onChange={(e) => setLocalSearchValue(e.target.value)}
-                sx={{
-                  width: "100%",
-                  maxWidth: "100%",
-                  backgroundColor: "white",
-                }}
-                id="fullWidth"
-              />
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSearch();
+          }}
+          className="flex items-center justify-between w-full gap-4 px-2 my-6"
+        >
+          <TextField
+            placeholder="What is your question?"
+            value={localSearchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            sx={{
+              width: "100%",
+              maxWidth: "100%",
+              backgroundColor: "white",
+            }}
+            id="fullWidth"
+          />
 
-              <Button
-                startIcon={isSearching && <CircularProgress size={24} color="white" />}
-                onClick={handleSearch}
-                variant="contained"
-                size="large"
-                sx={{ padding: "14px 12px" }}
-              >
-                Search
-              </Button>
-            </form>
-          </div>
+          <Button
+            startIcon={isSearching && <CircularProgress size={24} color="white" />}
+            onClick={handleSearch}
+            variant="contained"
+            size="large"
+            sx={{ padding: "14px 12px" }}
+          >
+            Search
+          </Button>
+        </form>
+      </div>
         </div>
       </header>
     </>
