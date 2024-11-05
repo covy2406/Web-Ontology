@@ -5,7 +5,7 @@ export const StorageContext = createContext();
 function StorageProvider({ children }) {
   const [searchResult, setSearchResult] = useState([]);
   const [page, setPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [searchValue, setSearchValue] = useState("");
 
   const states = {
@@ -13,17 +13,11 @@ function StorageProvider({ children }) {
     setSearchResult,
     page,
     setPage,
-    setIsLoading,
-    isLoading,
     searchValue,
     setSearchValue,
   };
 
-  return (
-    <StorageContext.Provider value={states}>
-      {children}
-    </StorageContext.Provider>
-  );
+  return <StorageContext.Provider value={states}>{children}</StorageContext.Provider>;
 }
 
 export default StorageProvider;

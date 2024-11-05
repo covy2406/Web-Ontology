@@ -1,17 +1,16 @@
 import { backgroundImage } from "../../assest/images";
 import "./Header.css";
-import { Button, CircularProgress, TextField } from "@mui/material";
+import { Button, CircularProgress, Modal, TextField } from "@mui/material";
 import { searchQuestion } from "../../services/api/search";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StorageContext } from "../../Context";
 import { useContext, useEffect, useState } from "react";
 
 const Header = () => {
-  const [localSearchValue, setLocalSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const { setSearchResult, page, setIsLoading, searchValue, setSearchValue } = useContext(StorageContext);
-  const location = useLocation();
-
+  const { setSearchResult, page, searchValue, setSearchValue } = useContext(StorageContext);
+  const [start, setStart] = useState(true);
+  const navigate = useNavigate();
   const handleSearch = () => {
     setIsSearching(true);
     setSearchValue(localSearchValue);
@@ -25,19 +24,25 @@ const Header = () => {
       .finally(() => setIsSearching(false));
   };
 
+  const [localSearchValue, setLocalSearchValue] = useState(searchValue);
+
   useEffect(() => {
+    if (start) {
+      return setStart(false);
+    }
+
     if (searchValue) {
-      setIsLoading(true);
+      setIsSearching(true);
       searchQuestion({ question: searchValue, page: page, perPage: 20 })
         .then((res) => {
           setSearchResult(res?.bindings);
+          navigate("/search");
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
           setIsSearching(false);
-          setIsLoading(false);
           setTimeout(() => {
             window.scrollTo(0, 0);
           }, 250);
@@ -46,14 +51,6 @@ const Header = () => {
 
     // eslint-disable-next-line
   }, [page]);
-
-  useEffect(() => {
-    if (location.pathname === "/") {
-      setLocalSearchValue("");
-    } else {
-      setLocalSearchValue(searchValue);
-    }
-  }, [location, searchValue]);
 
   return (
     <>
@@ -73,38 +70,44 @@ const Header = () => {
           </Link>
 
           <div className="flex w-full text-white h-fit">
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
-          className="flex items-center justify-between w-full gap-4 px-2 my-6"
-        >
-          <TextField
-            placeholder="What is your question?"
-            value={localSearchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            sx={{
-              width: "100%",
-              maxWidth: "100%",
-              backgroundColor: "white",
-            }}
-            id="fullWidth"
-          />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}
+              className="flex items-center justify-between w-full gap-4 px-2 my-6"
+            >
+              <TextField
+                placeholder="What is your question?"
+                value={localSearchValue}
+                onChange={(e) => setLocalSearchValue(e.target.value)}
+                sx={{
+                  width: "100%",
+                  maxWidth: "100%",
+                  backgroundColor: "white",
+                }}
+                id="fullWidth"
+              />
 
-          <Button
-            startIcon={isSearching && <CircularProgress size={24} color="white" />}
-            onClick={handleSearch}
-            variant="contained"
-            size="large"
-            sx={{ padding: "14px 12px" }}
-          >
-            Search
-          </Button>
-        </form>
-      </div>
+              <Button
+                startIcon={isSearching && <CircularProgress size={24} color="white" />}
+                onClick={handleSearch}
+                variant="contained"
+                size="large"
+                sx={{ padding: "14px 12px" }}
+              >
+                Search
+              </Button>
+            </form>
+          </div>
         </div>
       </header>
+
+      <Modal open={isSearching}>
+        <div className="flex items-center justify-center w-full h-full">
+          <CircularProgress size={30} />
+        </div>
+      </Modal>
     </>
   );
 };

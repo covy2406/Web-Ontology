@@ -1,5 +1,5 @@
 import { CircularProgress, InputAdornment, Modal, TextField } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { searchQuestion } from "../../services/api/search";
 import { StorageContext } from "../../Context";
@@ -9,43 +9,23 @@ import RelativeCard from "../../components/RelativeCard";
 const HomeIndex = () => {
   const [localSearchValue, setLocalSearchValue] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const { setSearchResult, page, setIsLoading, setSearchValue } = useContext(StorageContext);
+  const { setSearchResult, setSearchValue } = useContext(StorageContext);
   const navigate = useNavigate();
 
   const handleSearch = () => {
     setIsSearching(true);
-    setSearchValue(localSearchValue);
-    searchQuestion({ question: localSearchValue, page: page, perPage: 20 })
+    searchQuestion({ question: localSearchValue, page: 1, perPage: 20 })
       .then((res) => {
+        setIsSearching(false);
         setSearchResult(res?.bindings);
+        setSearchValue(localSearchValue);
         navigate("/search");
       })
       .catch((err) => {
         console.log(err);
-      })
-      .finally(() => setIsSearching(false));
+        setIsSearching(false);
+      });
   };
-
-  useEffect(() => {
-    if (localSearchValue) {
-      setIsLoading(true);
-      searchQuestion({ question: localSearchValue, page: page, perPage: 20 })
-        .then((res) => {
-          setSearchResult(res?.bindings);
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-          setIsSearching(false);
-          setIsLoading(false);
-          setTimeout(() => {
-            window.scrollTo(0, 0);
-          }, 250);
-        });
-    }
-    //eslint-disable-next-line
-  }, [page]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-[#3c3c3c]">
