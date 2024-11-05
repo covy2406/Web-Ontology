@@ -35,10 +35,8 @@ const Home = () => {
                 </div>
                 <div className="mb-2 text-sm italic">Updated 2 Nov 2024 Sat 23:41(+07:00)</div>
                 <ul className="pl-4 list-disc">
-                  <li>260 ontologies</li>
-                  <li>8.647.987 classes</li>
-                  <li>45.186 properties</li>
-                  <li>821.937 individuals</li>
+                  <li>14058 classes</li>
+                  <li>55 properties</li>
                 </ul>
               </div>
             </div>
