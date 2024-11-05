@@ -10,16 +10,18 @@ function HomeLayout() {
   const { isLoading, setSearchResult } = useContext(StorageContext);
 
   return (
-    <>
-      <Header setSearchResult={setSearchResult}/>
-      <Outlet />
+    <div className="flex flex-col min-h-screen">
+      <Header setSearchResult={setSearchResult} />
+      <div className="">
+        <Outlet />
+      </div>
       <Footer />
       <Modal open={isLoading}>
         <div className="flex items-center justify-center w-full h-full">
           <CircularProgress size={30} />
         </div>
       </Modal>
-    </>
+    </div>
   );
 }
 
