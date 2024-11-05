@@ -6,6 +6,7 @@ function StorageProvider({ children }) {
   const [searchResult, setSearchResult] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const states = {
     searchResult,
@@ -13,7 +14,9 @@ function StorageProvider({ children }) {
     page,
     setPage,
     setIsLoading,
-    isLoading
+    isLoading,
+    searchValue,
+    setSearchValue,
   };
 
   return (
